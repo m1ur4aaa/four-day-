@@ -14,26 +14,26 @@ func GuessTheNumber() {
 	number := rand.Intn(10) + 1
 
 	for attemptsCount < attemptsLimit && guess != number {
-		fmt.Print("Угадайте число (0..9): ")
+		fmt.Print("Guess the number (0..9): ")
 		_, err := fmt.Scanln(&guess)
 
 		if err != nil {
-			fmt.Println("Ошибка ввода.")
+			fmt.Println("Input error.")
 			continue
 		}
 
 		attemptsCount++
 
 		if guess < number {
-			fmt.Println("Число больше")
+			fmt.Println("The number is bigger")
 		} else if guess > number {
-			fmt.Println("Число меньше")
+			fmt.Println("The number is less")
 		}
 	}
 	if guess == number {
-		fmt.Printf("Вы победили, угадав с %d попытки\n", attemptsCount)
+		fmt.Printf("You won by guessing on %d attempt\n", attemptsCount)
 	} else {
-		fmt.Printf("Вы проиграли, было загадано число %d\n", number)
+		fmt.Printf("You lost, the number %d\n was guessed.", number)
 	}
 }
 
