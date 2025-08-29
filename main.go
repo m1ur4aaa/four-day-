@@ -8,27 +8,32 @@ import (
 
 func GuessTheNumber() {
 	rand.Seed(time.Now().UnixNano())
-	count := 0
+	attemptsLimit := 5
+	attemptsCount := 0
 	guess := -1
-	number := rand.Intn(10)
+	number := rand.Intn(10) + 1
 
-	for count < 6 && guess != number {
-		fmt.Print("Guess the number (0..9): ")
-		fmt.Scanln(&guess)
+	for attemptsCount < attemptsLimit && guess != number {
+		fmt.Print("Угадайте число (0..9): ")
+		_, err := fmt.Scanln(&guess)
 
-		if guess != number {
-			if guess < number {
-				fmt.Println("Your number is less")
-			} else {
-				fmt.Println("Your number is bigger")
-			}
-			count++
+		if err != nil {
+			fmt.Println("Ошибка ввода.")
+			continue
 		}
-		if guess == number {
-			fmt.Println("You Won!")
-		} else {
-			fmt.Println("Your lose")
+
+		attemptsCount++
+
+		if guess < number {
+			fmt.Println("Число больше")
+		} else if guess > number {
+			fmt.Println("Число меньше")
 		}
+	}
+	if guess == number {
+		fmt.Printf("Вы победили, угадав с %d попытки\n", attemptsCount)
+	} else {
+		fmt.Printf("Вы проиграли, было загадано число %d\n", number)
 	}
 }
 
